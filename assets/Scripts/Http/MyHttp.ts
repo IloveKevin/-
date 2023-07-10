@@ -45,7 +45,7 @@ export default class MyHttp {
             return this.httpIndex++;
     }
 
-    public static Login(account: string, password: string, callback?: (option: MyHttpOition) => MyHttpOition): void {
-        HttpModule.SendRequest('Post', ApiConfig.GetApi(ApiType.login), this.GetOption(callback), { account: account, password: password, appid: 1, device: "string" });
+    public static Login(account: string, password: string, callback?: (option: MyHttpOition) => MyHttpOition): number {
+        return this.SendRequest('Post', ApiConfig.GetApi(ApiType.login), this.GetOption(callback), { account: account, password: password, appid: 1, device: "string" });
     }
 }
