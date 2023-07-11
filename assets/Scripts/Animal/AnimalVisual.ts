@@ -1,9 +1,8 @@
-import EventSystem, { EventType } from "../Event/EventSystem";
+import { NodePoolType, AnimalType, AnimalVFXType, EventType } from "../Config/EnumConfig";
+import EventSystem from "../Event/EventSystem";
 import Grid from "../Grid/Grid";
 import SingletonManager from "../Manager/SingletonManager";
-import { NodePoolType } from "../NodePool/NodePool";
-import Animal, { AnimalType } from "./Animal";
-import { AnimalVFXType } from "./AnimalVFX";
+import Animal from "./Animal";
 
 const { ccclass, property } = cc._decorator;
 

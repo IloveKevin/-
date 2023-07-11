@@ -1,17 +1,10 @@
-import { AnimalRemoveAction, AnimalShakAction } from "../Action/Action";
+import { AnimalShakAction, AnimalRemoveAction } from "../Action/Action";
 import ActionModel from "../Action/ActionModel";
+import { AnimalVFXType } from "../Config/EnumConfig";
 import Grid from "../Grid/Grid";
 import SingletonManager from "../Manager/SingletonManager";
 import Animal from "./Animal";
 
-//动物特效类型
-export enum AnimalVFXType {
-    None,//无特效
-    Column,//列
-    Line,//行
-    Warp,//经线
-    Similar,//同类消除
-}
 export interface AnimalVFX {
     //触发特效
     TriggerVFX(animal: Animal, model: ActionModel): void;

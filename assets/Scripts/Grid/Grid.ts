@@ -1,10 +1,9 @@
-import { AnimalRemoveAction, AnimalShakAction, MoveAction, WaitAction, showVisualAction } from "../Action/Action";
+import { MoveAction, WaitAction, showVisualAction, AnimalShakAction, AnimalRemoveAction } from "../Action/Action";
 import ActionChain from "../Action/ActionChain";
 import ActionModel from "../Action/ActionModel";
-import Animal, { AnimalType } from "../Animal/Animal";
-import { AnimalVFXType } from "../Animal/AnimalVFX";
-import EventSystem, { EventType } from "../Event/EventSystem";
-import MyHttp, { MyHttpOition } from "../Http/MyHttp";
+import Animal from "../Animal/Animal";
+import { AnimalType, EventType, AnimalVFXType } from "../Config/EnumConfig";
+import EventSystem from "../Event/EventSystem";
 import SingletonManager from "../Manager/SingletonManager";
 
 const { ccclass, property } = cc._decorator;

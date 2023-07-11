@@ -1,3 +1,5 @@
+import { EventType } from "../Config/EnumConfig";
+
 export default class EventSystem {
     private EventMap: Map<EventType, Array<Function>> = new Map<EventType, Array<Function>>();
     //添加事件
@@ -32,6 +34,4 @@ export default class EventSystem {
         }
     }
 }
-export enum EventType {
-    ClickAnimal,
-}
+

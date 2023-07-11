@@ -1,18 +1,8 @@
+import { NodePoolType } from "../Config/EnumConfig";
 import SingletonManager from "../Manager/SingletonManager";
-import Util from "../Util/Util";
 
 const { ccclass, property } = cc._decorator;
-export enum NodePoolType {
-    Bear,//熊
-    Brid,//鸟
-    Cat,//猫头鹰
-    Chicken,//鸡
-    Fox,//狐狸
-    Frog,//青蛙
-    Horse,//河马
-    DestroyLight,//消除光效
-    BombWhite,//白色光线
-}
+
 @ccclass
 export default class NodePool extends cc.Component {
     @property({ type: [cc.Prefab], displayName: "预制体" })

@@ -1,10 +1,9 @@
 import ModuleBase from "../Base/ModuleBase";
+import { ModuleType } from "../Config/EnumConfig";
 import SingletonManager from "../Manager/SingletonManager";
 
 const { ccclass, property } = cc._decorator;
-export enum ModuleType {
-    EventManager,
-}
+
 @ccclass
 export default class ModuleManager extends cc.Component {
     protected onLoad(): void {

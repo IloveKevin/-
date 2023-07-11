@@ -1,21 +1,13 @@
-import { AnimalRemoveAction, AnimalShakAction, RemoveAction } from "../Action/Action";
+import { RemoveAction } from "../Action/Action";
 import ActionModel from "../Action/ActionModel";
+import { AnimalType, AnimalVFXType, NodePoolType } from "../Config/EnumConfig";
 import Grid from "../Grid/Grid";
 import SingletonManager from "../Manager/SingletonManager";
-import NodePool, { NodePoolType } from "../NodePool/NodePool";
+import NodePool from "../NodePool/NodePool";
 import Util from "../Util/Util";
-import VFXFactory, { AnimalVFXType } from "./AnimalVFX";
+import VFXFactory from "./AnimalVFX";
 import AnimalVisual from "./AnimalVisual";
-//动物类型
-export enum AnimalType {
-    Bear,//熊
-    Brid,//鸟
-    Cat,//猫头鹰
-    Chicken,//鸡
-    Fox,//狐狸
-    Frog,//青蛙
-    Horse,//河马
-}
+
 export default class Animal {
     public row: number = null;//逻辑行
     public col: number = null;//逻辑列

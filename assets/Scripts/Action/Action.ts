@@ -1,4 +1,5 @@
-import Animal, { AnimalType } from "../Animal/Animal";
+import Animal from "../Animal/Animal";
+import { AnimalType } from "../Config/EnumConfig";
 
 export default interface Action {
     Run(callback?: () => void): void;
