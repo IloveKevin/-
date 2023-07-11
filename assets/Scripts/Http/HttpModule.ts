@@ -1,29 +1,16 @@
 export interface HttpOption {
     header: Map<string, string>;
     timeOut: number;
-    isTimeOut: boolean;
-    isError: boolean;
-    Success: (data: ProgressEvent<XMLHttpRequestEventTarget>) => void;
-    Error: (data: ProgressEvent<XMLHttpRequestEventTarget>) => void;
-    Abort: (data: ProgressEvent<XMLHttpRequestEventTarget>) => void;
-    Succeed: (data: ProgressEvent<XMLHttpRequestEventTarget>) => void;
-    Loadend: (data: ProgressEvent<XMLHttpRequestEventTarget>) => void;
-    Loadstart: (data: ProgressEvent<XMLHttpRequestEventTarget>) => void;
-    Progress: (data: ProgressEvent<XMLHttpRequestEventTarget>) => void;
-    Timeout: (data: ProgressEvent<XMLHttpRequestEventTarget>) => void;
+    eventListener: Map<'error' | 'abort' | 'load' | 'loadend' | 'loadstart' | 'progress' | 'timeout', (data: ProgressEvent<XMLHttpRequestEventTarget>) => void>;
 }
 export default class HttpModule {
     public static SendRequest(mothod: 'Get' | 'Post' | 'Put' | 'Delete', url: URL, option: HttpOption, data?: string | number | object): XMLHttpRequest {
         let xhr = new XMLHttpRequest();
         xhr.timeout = option.timeOut;
-        xhr.upload.addEventListener("progress", option.Progress);
-        xhr.addEventListener("error", option.Error);
-        xhr.addEventListener("abort", option.Abort);
-        xhr.addEventListener("load", option.Succeed);
-        xhr.addEventListener("loadend", option.Loadend);
-        xhr.addEventListener("loadstart", option.Loadstart);
-        xhr.addEventListener("progress", option.Progress);
-        xhr.addEventListener("timeout", option.Timeout);
+        option.eventListener.forEach((value, key) => {
+            if (key == "progress") xhr.upload.addEventListener(key, value);
+            xhr.addEventListener(key, value);
+        });
         xhr.open(mothod, mothod == "Get" && data != null ? new URL(url.href + "?" + this.GetData(data)) : url, true);
         option.header.forEach((value, key) => {
             xhr.setRequestHeader(key, value);
