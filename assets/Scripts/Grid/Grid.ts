@@ -21,18 +21,15 @@ export default class Grid extends cc.Component {
     public canClick: boolean = null;//是否可以点击
     public chooseAnimal: Animal = null;//选择的动物
     public _grid: Animal[][] = null;//动物数组
-    private eventSystem: EventSystem = null;//事件系统
     public size: number = 70;
     public similarAnimalType: AnimalType = null;//相同动物类型
     public actionChain: ActionChain = null;//动作链
-    private a: XMLHttpRequest = null;
     protected onLoad(): void {
         SingletonManager.Instance.AddSingleton(this);
     }
 
     protected start(): void {
-        this.eventSystem = SingletonManager.Instance.GetSingleton(EventSystem);
-        this.eventSystem.AddEvent(EventType.ClickAnimal, this.OnClickAnimal.bind(this));
+        EventSystem.GetInstance().AddEvent(EventType.ClickAnimal, this.OnClickAnimal.bind(this));
         this.Init();
     }
 
