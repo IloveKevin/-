@@ -1,5 +1,5 @@
 export interface HttpOption {
-    header: Map<string, string>;
+    header: Map<string, string | (() => string)>;
     timeOut: number;
     eventListener: Map<'error' | 'abort' | 'load' | 'loadend' | 'loadstart' | 'progress' | 'timeout', (data: ProgressEvent<XMLHttpRequestEventTarget>) => void>;
 }
@@ -13,6 +13,7 @@ export default class HttpModule {
         });
         xhr.open(mothod, mothod == "Get" && data != null ? new URL(url.href + "?" + this.GetData(data)) : url, true);
         option.header.forEach((value, key) => {
+            if (typeof value == 'function') value = value();
             xhr.setRequestHeader(key, value);
         });
         xhr.send(mothod == "Get" ? null : option.header.get("Content-Type") == "application/json" ? JSON.stringify(data) : data as FormData);

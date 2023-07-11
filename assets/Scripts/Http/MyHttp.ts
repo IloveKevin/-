@@ -2,7 +2,7 @@ import { ApiConfig, ApiType } from "../Config/ApiConfig";
 import HttpModule, { HttpOption } from "./HttpModule";
 
 export class MyHttpOition implements HttpOption {
-    header: Map<string, string> = new Map<string, string>();
+    header: Map<string, string | (() => string)> = new Map<string, string | (() => string)>();
     timeOut: number = 0;
     eventListener: Map<'error' | 'abort' | 'load' | 'loadend' | 'loadstart' | 'progress' | 'timeout', (data: ProgressEvent<XMLHttpRequestEventTarget>) => void> = new Map<'error' | 'abort' | 'load' | 'loadend' | 'loadstart' | 'progress' | 'timeout', (data: ProgressEvent<XMLHttpRequestEventTarget>) => void>();
 }
@@ -11,14 +11,24 @@ export class HttpRequest {
     constructor(mothod: 'Get' | 'Post' | 'Put' | 'Delete', url: URL, data?: string | number | object) {
         this.mothod = mothod;
         this.url = url;
+        if (typeof data == 'object') {
+            HttpRequest.globalData.forEach((value, key) => {
+                data[key] = value;
+            });
+        }
         this.data = data;
     }
     private xhr: XMLHttpRequest = new XMLHttpRequest();
     private readonly url: URL;
     private readonly mothod: 'Get' | 'Post' | 'Put' | 'Delete';
     private readonly data: string | number | object;
+    private static globalData: Map<string, string | number> = new Map<string, string | number>();
     private static globalOption: HttpOption = new MyHttpOition();
     private option: HttpOption = new MyHttpOition();
+    public static SetGlobalData(key: string, value: string | number): typeof HttpRequest {
+        this.globalData.set(key, value);
+        return HttpRequest;
+    }
     public AddEventListener(type: 'error' | 'abort' | 'load' | 'loadend' | 'loadstart' | 'progress' | 'timeout', callback: (data: ProgressEvent<XMLHttpRequestEventTarget>) => void): HttpRequest {
         this.option.eventListener.set(type, callback);
         return this;

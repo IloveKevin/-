@@ -35,13 +35,6 @@ export default class Grid extends cc.Component {
         this.eventSystem = SingletonManager.Instance.GetSingleton(EventSystem);
         this.eventSystem.AddEvent(EventType.ClickAnimal, this.OnClickAnimal.bind(this));
         this.Init();
-        MyHttp.Login("admin", "Object", (option: MyHttpOition) => {
-            option.Loadend = (data: ProgressEvent<XMLHttpRequestEventTarget>) => {
-                if (option.isError || option.isTimeOut) return;
-                cc.log(data);
-            };
-            return option;
-        });
     }
 
     logTest(): void {
