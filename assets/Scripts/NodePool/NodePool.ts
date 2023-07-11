@@ -1,19 +1,15 @@
+import SingletonBase from "../Base/SingletonBase";
 import { NodePoolType } from "../Config/EnumConfig";
-import SingletonManager from "../Manager/SingletonManager";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class NodePool extends cc.Component {
+export default class NodePool extends SingletonBase {
     @property({ type: [cc.Prefab], displayName: "预制体" })
     private prefabList: cc.Prefab[] = [];
     @property({ type: cc.Integer, displayName: "预制体初始创建数量" })
     private count: number = 5;
     private poolMap: Map<NodePoolType, cc.NodePool>;
-    protected onLoad(): void {
-        SingletonManager.Instance.AddSingleton(this);
-        this.Init();
-    }
     public Init(): void {
         this.poolMap = new Map<NodePoolType, cc.NodePool>();
         for (var poolType in NodePoolType) {
