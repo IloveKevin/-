@@ -1,10 +1,10 @@
-import SingletonBase from "../Base/SingletonBase";
-import { NodePoolType } from "../Config/EnumConfig";
+import SingletonBase from "../../Base/SingletonBase";
+import { NodePoolType } from "../../Config/EnumConfig";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class NodePool extends SingletonBase {
+export default class NodePoolSystem extends SingletonBase {
     @property({ type: [cc.Prefab], displayName: "预制体" })
     private prefabList: cc.Prefab[] = [];
     @property({ type: cc.Integer, displayName: "预制体初始创建数量" })

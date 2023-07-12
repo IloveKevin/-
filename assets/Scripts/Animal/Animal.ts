@@ -2,8 +2,7 @@ import { RemoveAction } from "../Action/Action";
 import ActionModel from "../Action/ActionModel";
 import { AnimalType, AnimalVFXType, NodePoolType } from "../Config/EnumConfig";
 import Grid from "../Grid/Grid";
-import SingletonManager from "../Manager/SingletonManager";
-import NodePool from "../NodePool/NodePool";
+import NodePoolSystem from "../System/NodePool/NodePoolSystem";
 import Util from "../Util/Util";
 import VFXFactory from "./AnimalVFX";
 import AnimalVisual from "./AnimalVisual";
@@ -17,12 +16,10 @@ export default class Animal {
     public isClick: boolean = false;//是否点击
     public isRemove: boolean = false;//是否移除
     public animalVisual: AnimalVisual = null;//动物视觉
-    private noodPool: NodePool = null;
+    private noodPool: NodePoolSystem = null;
     public grid: Grid = null;
 
     public constructor() {
-        this.noodPool = SingletonManager.Instance.GetSingleton(NodePool);
-        this.grid = SingletonManager.Instance.GetSingleton(Grid);
     }
 
     public showVisual(pos: cc.Vec2): void {

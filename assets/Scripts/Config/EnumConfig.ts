@@ -22,10 +22,6 @@ export enum EventType {
     ClickAnimal,
 }
 
-export enum ModuleType {
-    EventManager,
-}
-
 export enum NodePoolType {
     Bear,//熊
     Brid,//鸟

@@ -1,5 +1,5 @@
-import SingletonBase from "../Base/SingletonBase";
-import { EventType } from "../Config/EnumConfig";
+import SingletonBase from "../../Base/SingletonBase";
+import { EventType } from "../../Config/EnumConfig";
 
 export default class EventSystem extends SingletonBase {
     private EventMap: Map<EventType, Array<Function>> = new Map<EventType, Array<Function>>();

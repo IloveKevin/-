@@ -1,7 +1,7 @@
+
 import { NodePoolType, AnimalType, AnimalVFXType, EventType } from "../Config/EnumConfig";
-import EventSystem from "../Event/EventSystem";
 import Grid from "../Grid/Grid";
-import SingletonManager from "../Manager/SingletonManager";
+import EventSystem from "../System/Event/EventSystem";
 import Animal from "./Animal";
 
 const { ccclass, property } = cc._decorator;
@@ -23,8 +23,6 @@ export default class AnimalVisual extends cc.Component {
     }
 
     protected start(): void {
-        this.eventSystem = SingletonManager.Instance.GetSingleton(EventSystem);
-        this.grid = SingletonManager.Instance.GetSingleton(Grid);
     }
 
     //初始化

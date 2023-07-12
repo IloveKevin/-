@@ -3,8 +3,7 @@ import ActionChain from "../Action/ActionChain";
 import ActionModel from "../Action/ActionModel";
 import Animal from "../Animal/Animal";
 import { AnimalType, EventType, AnimalVFXType } from "../Config/EnumConfig";
-import EventSystem from "../Event/EventSystem";
-import SingletonManager from "../Manager/SingletonManager";
+import EventSystem from "../System/Event/EventSystem";
 
 const { ccclass, property } = cc._decorator;
 
@@ -25,7 +24,6 @@ export default class Grid extends cc.Component {
     public similarAnimalType: AnimalType = null;//相同动物类型
     public actionChain: ActionChain = null;//动作链
     protected onLoad(): void {
-        SingletonManager.Instance.AddSingleton(this);
     }
 
     protected start(): void {
