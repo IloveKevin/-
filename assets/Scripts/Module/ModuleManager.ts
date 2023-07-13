@@ -29,7 +29,6 @@ export default class ModuleManager extends SingletonBase {
                 return;
             }
         }
-
     }
     //获取模块
     public GetModule(name: string): IModule {

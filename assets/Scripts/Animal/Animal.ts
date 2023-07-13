@@ -1,4 +1,4 @@
-import { RemoveAction } from "../Action/Action";
+import { IRemoveAction } from "../Action/Action";
 import ActionModel from "../Action/ActionModel";
 import { AnimalType, AnimalVFXType, NodePoolType } from "../Config/EnumConfig";
 import Grid from "../Grid/Grid";
@@ -31,7 +31,7 @@ export default class Animal {
         this.animalVisual.Init(this);
     }
 
-    public Remove(model: ActionModel, action: RemoveAction): void {
+    public Remove(model: ActionModel, action: IRemoveAction): void {
         model.AddAction(action);
         this.grid._grid[this.row][this.col] = null;
         VFXFactory.GetVFX(this.animalVFX).TriggerVFX(this, model);

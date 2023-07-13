@@ -1,12 +1,12 @@
-import Action from "./Action";
+import IAction from "./Action";
 import ActionChain from "./ActionChain";
 
 export default class ActionModel {
-    private actions: Action[] = [];//动作模型持有的动作组
+    private actions: IAction[] = [];//动作模型持有的动作组
     public chain: ActionChain = null;//动作模型所属的动作链
     private finishCount: number = 0;//已完成的动作数量
     public nextModel: ActionModel = null;//下一个动作模型
-    public AddAction(action: Action): void {
+    public AddAction(action: IAction): void {
         this.actions.push(action);
     }
     public ActionFinish(): void {

@@ -7,10 +7,17 @@ export class MyHttpOition implements HttpOption {
     eventListener: Map<'error' | 'abort' | 'load' | 'loadend' | 'loadstart' | 'progress' | 'timeout', (data: ProgressEvent<XMLHttpRequestEventTarget>) => void> = new Map<'error' | 'abort' | 'load' | 'loadend' | 'loadstart' | 'progress' | 'timeout', (data: ProgressEvent<XMLHttpRequestEventTarget>) => void>();
 }
 
+export interface RequestSender {
+    SendRequest<T extends (...args: K) => HttpRequest, K extends any[]>(fun: T, ...args: K): HttpRequest
+    AddRequest(request: HttpRequest): void
+    RemoveRequest(request: HttpRequest): void
+}
+
 export class HttpRequest {
-    constructor(mothod: 'Get' | 'Post' | 'Put' | 'Delete', url: URL, data?: string | number | object) {
+    constructor(mothod: 'Get' | 'Post' | 'Put' | 'Delete', url: URL, sender: RequestSender, data?: string | number | object) {
         this.mothod = mothod;
         this.url = url;
+        this.sender = sender;
         if (typeof data == 'object') {
             HttpRequest.globalData.forEach((value, key) => {
                 data[key] = value;
@@ -19,6 +26,7 @@ export class HttpRequest {
         this.data = data;
     }
     private xhr: XMLHttpRequest = new XMLHttpRequest();
+    private readonly sender: RequestSender;
     private readonly url: URL;
     private readonly mothod: 'Get' | 'Post' | 'Put' | 'Delete';
     private readonly data: string | number | object;
@@ -79,7 +87,7 @@ export class HttpRequest {
 }
 
 export default class MyHttp {
-    public static Login(account: string, password: string, callback?: (option: MyHttpOition) => MyHttpOition): HttpRequest {
-        return new HttpRequest("Post", new URL(ApiConfig.GetApi(ApiType.login)), { account: account, password: password })
+    public static Login(sender: RequestSender, account: string, password: string, callback?: (option: MyHttpOition) => MyHttpOition): HttpRequest {
+        return new HttpRequest("Post", new URL(ApiConfig.GetApi(ApiType.login)), sender, { account: account, password: password })
     }
 }

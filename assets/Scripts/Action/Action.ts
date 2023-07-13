@@ -1,15 +1,13 @@
 import Animal from "../Animal/Animal";
 import { AnimalType } from "../Config/EnumConfig";
 
-export default interface Action {
+export default interface IAction {
     Run(callback?: () => void): void;
 }
 
-export class RemoveAction implements Action {
-    public Run(callback?: () => void): void { }
-}
+export interface IRemoveAction extends IAction { }
 
-export class showVisualAction implements Action {
+export class showVisualAction implements IAction {
     constructor(target: Animal, pos: cc.Vec2) {
         this.target = target;
         this.position = pos;
@@ -24,7 +22,7 @@ export class showVisualAction implements Action {
     }
 }
 
-export class MoveAction implements Action {
+export class MoveAction implements IAction {
     constructor(animal: Animal, position: cc.Vec2) {
         this.animal = animal;
         this.position = cc.v3(position.x, position.y, 0);
@@ -42,7 +40,7 @@ export class MoveAction implements Action {
     }
 }
 
-export class WaitAction implements Action {
+export class WaitAction implements IAction {
     constructor(time: number) {
         this.time = time * 1000;
     }
@@ -56,9 +54,8 @@ export class WaitAction implements Action {
     }
 }
 
-export class AnimalRemoveAction extends RemoveAction {
+export class AnimalRemoveAction implements IRemoveAction {
     constructor(target: Animal) {
-        super();
         this.target = target;
     }
     private target: Animal = null;//目标动物
@@ -69,9 +66,8 @@ export class AnimalRemoveAction extends RemoveAction {
     }
 }
 
-export class AnimalShakAction extends RemoveAction {
+export class AnimalShakAction implements IRemoveAction {
     constructor(target: Animal) {
-        super();
         this.target = target;
     }
     private target: Animal = null;//目标动物
