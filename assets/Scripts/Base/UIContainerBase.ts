@@ -2,15 +2,18 @@ import MyHttp, { HttpRequest, RequestSender } from "../Http/MyHttp";
 import IModule from "../Module/IModule";
 
 export default class UIContainerBase implements IModule, RequestSender {
-    priority: number;
-    public name: string;
+    priority: number = 0;
+    public name: string = "UIContainerBase";
+    private node: cc.Node;
     private requestList: HttpRequest[];
     private parent: UIContainerBase;
     private children: UIContainerBase[];
-    public Init(): void {
+    public Init(): UIContainerBase {
+        this.node = null;
         this.requestList = [];
         this.parent = null;
         this.children = [];
+        return this;
     }
     public OnModuleUpdate(dt: number): void {
         this.children.forEach((value) => {
@@ -28,11 +31,17 @@ export default class UIContainerBase implements IModule, RequestSender {
         this.children = [];
         this.SetParent(null);
     }
+    private Show(): void {
+        this.node
+    }
     public AddChild(child: UIContainerBase): void {
-        child.SetParent(this);
+        if (child.parent != null) child.parent.RemoveChild(child);
+        child.parent = this;
+        child.node.parent = this.node;
         this.children.push(child);
     }
     private RemoveChild(child: UIContainerBase): void {
+        this.node.removeChild(child.node);
         child.parent = null;
         this.children.splice(this.children.indexOf(child), 1);
     }
@@ -52,8 +61,10 @@ export default class UIContainerBase implements IModule, RequestSender {
         return this.children.length;
     }
     public SetParent(parent: UIContainerBase): void {
+        this.node.parent = parent.node;
         if (this.parent != null) this.parent.RemoveChild(this);
         this.parent = parent;
+        parent.children.push(this);
     }
     public AddRequest(request: HttpRequest): void {
         this.requestList.push(request);
